@@ -5,8 +5,10 @@
 P51：
 
 &emsp;&emsp;**实现一个函数，<u>把字符串中的每个空格都替换成“%20”</u>。例如，输入“We are happy.”，则输出为“We%20are%20happy.”。**
-##### Java StringBuffer和StringBuilder类
+
+**Java StringBuffer和StringBuilder类**
 &emsp;&emsp;当<u><font color=red>对字符串[^1]进行修改的时候</font></u>，需要使用StringBuffer和StringBuilder类。
+[^1]: 一般，字符串不可修改！
 
 &emsp;&emsp;与String类不同的是，StringBuffer和StringBuilder类的对象能够被多次的修改，并且<font color=red><u>不产生新的未使用对象</u></font>。StringBuilder类在Java 5中被提出，它和StringBuffer之间的最大不同在于<u>StringBuilder的方法不是线程安全的</u>(不能同步访问)。由于StringBuilder相较于StringBuffer有速度优势，所以多数情况下建议使用StringBuilder类。然而在应用程序要求线程安全的情况下，则必须使用StringBuffer类。
 ```Java
@@ -68,6 +70,132 @@ public class ReplaceSpaces_5
     }
 }
 ```
-按Github的Markdown格式修改
 
-[^1]: 一般，字符串不可修改！
+#### 19 正则表达式匹配
+P124
+&emsp;&emsp;实现一个函数用来匹配包括'.'和'\*'的正则表达式。<font color=red>模式中的字符'.'表示任意一个字符，而'\*'表示它前面的字符可以出现任意次(包含0次)</font>。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab\*ac\*a"匹配，但是与"aa.a"和"ab\*a"均不匹配。
+
+**解析**：
+&emsp;&emsp;每次从字符串里拿出一个字符和模式中的字符去匹配。<font color=red>先来分析如何匹配一个字符</font>。如果模式中的字符ch是'.'， 那么它可以匹配字符串中的任意字符。如果模式中的字符ch不是'.'，而且字符串中的字符也是ch(字符串中的字符与模式中的字符一样)，那么它们相互匹配。当字符串中的字符和模式中的字符相匹配时，接着匹配后面的字符。
+
+<font color=red>当模式中的第二个字符不是'\*'时</font>，如果字符串中的第一个字符和模式中的第一个字符相匹配， 那么在字符串和模式上都向后移动一个字符，然后匹配剩余的字符串和模式。<font color=red>如果字符串中的第一个字符和模式中的第一个字符不相匹配，则直接返回false</font>。
+
+<font color=red>当模式中的第二个字符是'\*'时</font>，可能有多种不同的匹配方式。(<font color=red>一种选择是<u>在模式上</u>向后移动两个字符。这相当于'\*'和它前面的字符被忽略了</font>，因为'\*'可以匹配字符串中的0个字符。<font color=red>如果模式中的第一个字符和字符串中的第一个字符相匹配，则在字符串上向后移动一个字符，而在模式上有两种选择：可以在模式上向后移动两个字符，也可以保持模式不变</font>。)
+
+如果字符串第一个字符跟模式第一个字符不匹配，则模式后移2个字符，继续匹配。如果字符串第一个字符跟模式第一个字符匹配，可以有3种匹配方式：
+* 模式后移2字符，相当于x\*被忽略；
+* 字符串后移1字符，模式后移2字符；
+* 字符串后移1字符，模式不变，即继续匹配字符下一位，因为*可以匹配多位。
+
+```java
+/**
+ * 19. 正则表达式匹配
+ */
+
+public class RegularExpressionMatching
+{
+    public static boolean match(char[] str, char[] pattern)
+    {
+        if (str == null || pattern == null)
+            return false;
+
+        int strIndex = 0;
+        int patternIndex = 0;
+        return matchCore(str, strIndex, pattern, patternIndex);
+    }
+
+    public static boolean matchCore(char[] str, int strIndex, char[] pattern, int patternIndex)
+    {
+        //str到尾，pattern到尾，匹配成功
+        if (strIndex == str.length && patternIndex == pattern.length)  // 数组长度的函数不是length()
+            return true;
+
+        //str未到尾，pattern到尾，匹配失败
+        if (strIndex != str.length && patternIndex == pattern.length)
+            return false;
+
+        //str到尾，pattern未到尾(不一定匹配失败，因为a*可以匹配0个字符)
+        if (strIndex == str.length && patternIndex != pattern.length) {
+            //只有pattern剩下的部分类似a*b*c*的形式，才匹配成功
+            if (patternIndex + 1 < pattern.length && pattern[patternIndex + 1] == '*') {
+                return matchCore(str, strIndex, pattern, patternIndex + 2);
+            }
+            return false;
+        }
+
+        //str未到尾，pattern未到尾
+
+        //模式第2个是*
+        // 字符串第1个跟模式第1个匹配,分3种匹配模式；如不匹配，模式后移2位
+        if (patternIndex + 1 < pattern.length && pattern[patternIndex + 1] == '*')
+        {
+            if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))
+            {
+                return matchCore(str, strIndex, pattern, patternIndex + 2)  //模式后移2，视为x*匹配0个字符
+                            || matchCore(str, strIndex + 1, pattern, patternIndex + 2)  //字符串后移1字符，模式后移2字符
+                            || matchCore(str, strIndex + 1, pattern, patternIndex);  //字符串后移1字符，模式不变，即继续匹配字符下一位，因为*可以匹配多位
+            }
+            else  //字符串第一个字符跟模式第一个字符不匹配，则模式后移2个字符，继续匹配
+                return matchCore(str, strIndex, pattern, patternIndex + 2);
+        }
+
+        //模式第2个不是*，且字符串第1个跟模式第1个匹配，则都后移1位，否则直接返回false
+        if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))
+            return matchCore(str, strIndex + 1, pattern, patternIndex + 1);
+
+        return false;
+    }
+
+    public static void main(String[] args)
+    {
+        char[] str1 = {'a', 'a', 'a'};
+        char[] str2 = {'a', '.', 'a'};
+        System.out.println(match(str1, str2));
+    }
+}
+```
+
+#### 20.表示数值的字符串
+P127
+&emsp;&emsp;请实现一个函数用来判断字符串是否表示数值(包括整数和小数)。例如，字符串"+100", "5e2", "-123", "3.1416"和"-1E-16"都表示数值。但是"12e", "1a3.14", "1.2.3", "+-5"和"12e+4.3"都不是。
+
+**解析**：
+&emsp;&emsp;表示数值的字符串遵循模式 **A[.[B]]['e|E'C]** 或者 **.B['e|E'C]**。A,B,C表示整数(A不是必需的，如.123=0.123) ( | 表示或。[]表示可有可无)。
+
+A和C都是可能以'+'或者'-'开头的0\~9的数位串；B也是0\~9的数位串，但是前面不能有正负号。
+
+&emsp;&emsp;<font color=red>判断一个字符串是否符合上述模式时，首先尽可能多地扫描0\~9的数位(有可能在起始处有'+'或者'-'，也就是前面模式中表示数值整数的A部分。如果遇到小数点'.'，则开始扫描表示数值小数部分的B部分。如果遇到'e'或者'E'，则开始扫描表示数值指数的C部分。</font>
+```Java
+/**
+ * 20.表示数值的字符串
+ */
+
+public class NumberStrings
+{
+    private static boolean isNumeric(char[] str)
+    {
+        String string = String.valueOf(str);
+        return string.matches("[+-]?[0-9]*(\\.[0-9]*)?([eE][+-]?[0-9]+)?");
+        // return string.matches("[\\+\\-]?\\d*(\\.\\d+)?([eE][\\+\\-]?\\d+)?");
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println(isNumeric(new char[] {'2', 'e', '+', '5', '.', '4'}));
+    }
+}
+```
+对正则进行解释：
+```
+[+-]?                  -> 正或负符号出现与否
+[0-9]*                 -> 整数部分是否出现，如-.34 或 +3.34均符合
+(\\.[0-9]*)?           -> 如果出现小数点，那么小数点后面必须有数字；否则一起不出现
+([eE][+-]?[0-9]+)?     -> 如果存在指数部分，那么e或E肯定出现，+或-可以不出现，紧接着必须跟着整数；或者整个部分都不出现
+
+限定符：
+*	匹配前面的子表达式零次或多次。例如，zo* 能匹配 "z" 以及 "zoo"。
++	匹配前面的子表达式一次或多次。例如，'zo+' 能匹配 "zo" 以及 "zoo"，但不能匹配 "z"。
+?	匹配前面的子表达式零次或一次。例如，"do(es)?" 可以匹配 "do", "does" 中的 "does", "doxy" 中的 "do" 。
+( )	标记一个子表达式的开始和结束位置。
+\\.     表示'.'，Java中转义需要两个反斜杠
+```
