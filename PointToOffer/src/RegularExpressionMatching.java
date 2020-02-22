@@ -12,7 +12,7 @@ public class RegularExpressionMatching
 
     private static boolean matchCore(char[] str, int strIndex, char[] pattern, int patternIndex)
     {
-        //str到尾，pattern到尾，匹配成功
+        //str到尾，pattern到尾，匹配成功(所谓到尾，指：xxIndex==xx.length)
         if (strIndex == str.length && patternIndex == pattern.length)  // 数组长度的函数不是length()
             return true;
 
@@ -35,7 +35,7 @@ public class RegularExpressionMatching
         // 字符串第1个跟模式第1个匹配,分3种匹配模式；如不匹配，模式后移2位
         if (patternIndex + 1 < pattern.length && pattern[patternIndex + 1] == '*')
         {
-            if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))
+            if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length)) // &&存在可排除a与a.*
             {
                 return matchCore(str, strIndex, pattern, patternIndex + 2)  //模式后移2，视为x*匹配0个字符
                         || matchCore(str, strIndex + 1, pattern, patternIndex + 2)  //字符串后移1字符，模式后移2字符
@@ -46,7 +46,7 @@ public class RegularExpressionMatching
         }
 
         //模式第2个不是*，且字符串第1个跟模式第1个匹配，则都后移1位，否则直接返回false
-        if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))  // a与a.
+        if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))  // a与a.使得&&存在
             return matchCore(str, strIndex + 1, pattern, patternIndex + 1);
 
         return false;

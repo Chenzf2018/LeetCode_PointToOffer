@@ -71,6 +71,43 @@ public class ReplaceSpaces_5
 }
 ```
 
+##### ReplaceSpaces.java
+```java {.line-numbers highlight=12}
+/**
+ * 5.替换空格
+ */
+
+public class ReplaceSpaces
+{
+    public static String replaceSpace(StringBuffer str)
+    {
+        if (str == null)
+            return null;
+        StringBuffer newStr = new StringBuffer();
+        for (int i=0; i < str.length(); i++)
+        {
+            if (str.charAt(i) == ' ')
+            {
+                newStr.append('%');
+                newStr.append('2');
+                newStr.append('0');
+            }
+            else
+                newStr.append(str.charAt(i));
+        }
+        return newStr.toString();
+    }
+
+    public static void main(String[] args)
+    {
+        StringBuffer preString = new StringBuffer("We are happy ");
+        String newString = replaceSpace(preString);
+        System.out.println(preString);
+        System.out.println(newString);
+    }
+}
+```
+
 #### 19 正则表达式匹配
 P124
 &emsp;&emsp;实现一个函数用来匹配包括'.'和'\*'的正则表达式。<font color=red>模式中的字符'.'表示任意一个字符，而'\*'表示它前面的字符可以出现任意次(包含0次)</font>。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab\*ac\*a"匹配，但是与"aa.a"和"ab\*a"均不匹配。
@@ -88,13 +125,9 @@ P124
 * 字符串后移1字符，模式不变，即继续匹配字符下一位，因为*可以匹配多位。
 
 ```java
-/**
- * 19. 正则表达式匹配
- */
-
 public class RegularExpressionMatching
 {
-    public static boolean match(char[] str, char[] pattern)
+    private static boolean match(char[] str, char[] pattern)
     {
         if (str == null || pattern == null)
             return false;
@@ -104,9 +137,9 @@ public class RegularExpressionMatching
         return matchCore(str, strIndex, pattern, patternIndex);
     }
 
-    public static boolean matchCore(char[] str, int strIndex, char[] pattern, int patternIndex)
+    private static boolean matchCore(char[] str, int strIndex, char[] pattern, int patternIndex)
     {
-        //str到尾，pattern到尾，匹配成功
+        //str到尾，pattern到尾，匹配成功(所谓到尾，指：xxIndex==xx.length)
         if (strIndex == str.length && patternIndex == pattern.length)  // 数组长度的函数不是length()
             return true;
 
@@ -115,7 +148,7 @@ public class RegularExpressionMatching
             return false;
 
         //str到尾，pattern未到尾(不一定匹配失败，因为a*可以匹配0个字符)
-        if (strIndex == str.length && patternIndex != pattern.length) {
+        if (strIndex == str.length && patternIndex < pattern.length) {
             //只有pattern剩下的部分类似a*b*c*的形式，才匹配成功
             if (patternIndex + 1 < pattern.length && pattern[patternIndex + 1] == '*') {
                 return matchCore(str, strIndex, pattern, patternIndex + 2);
@@ -129,18 +162,18 @@ public class RegularExpressionMatching
         // 字符串第1个跟模式第1个匹配,分3种匹配模式；如不匹配，模式后移2位
         if (patternIndex + 1 < pattern.length && pattern[patternIndex + 1] == '*')
         {
-            if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))
+            if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length)) // &&存在可排除a与a.*
             {
                 return matchCore(str, strIndex, pattern, patternIndex + 2)  //模式后移2，视为x*匹配0个字符
-                            || matchCore(str, strIndex + 1, pattern, patternIndex + 2)  //字符串后移1字符，模式后移2字符
-                            || matchCore(str, strIndex + 1, pattern, patternIndex);  //字符串后移1字符，模式不变，即继续匹配字符下一位，因为*可以匹配多位
+                        || matchCore(str, strIndex + 1, pattern, patternIndex + 2)  //字符串后移1字符，模式后移2字符
+                        || matchCore(str, strIndex + 1, pattern, patternIndex);  //字符串后移1字符，模式不变，即继续匹配字符下一位，因为*可以匹配多位
             }
             else  //字符串第一个字符跟模式第一个字符不匹配，则模式后移2个字符，继续匹配
                 return matchCore(str, strIndex, pattern, patternIndex + 2);
         }
 
         //模式第2个不是*，且字符串第1个跟模式第1个匹配，则都后移1位，否则直接返回false
-        if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))
+        if (pattern[patternIndex] == str[strIndex] || (pattern[patternIndex] == '.' && strIndex != str.length))  // a与a.使得&&存在
             return matchCore(str, strIndex + 1, pattern, patternIndex + 1);
 
         return false;
@@ -149,8 +182,10 @@ public class RegularExpressionMatching
     public static void main(String[] args)
     {
         char[] str1 = {'a', 'a', 'a'};
-        char[] str2 = {'a', '.', 'a'};
-        System.out.println(match(str1, str2));
+        //char[] str2 = {'a', '.', 'a'};
+        //char[] str3 = {'a', 'b', '*', 'a'};
+        char[] str4 = {'a', '*', 'a', 'a'};
+        System.out.println(match(str1, str4));
     }
 }
 ```
@@ -199,3 +234,10 @@ public class NumberStrings
 ( )	标记一个子表达式的开始和结束位置。
 \\.     表示'.'，Java中转义需要两个反斜杠
 ```
+
+#### 58.翻转单词顺序(\*****)
+P284
+&emsp;&emsp;输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入字符串"I am a student."，则输出"student. a am I"。
+
+**解析**：
+&emsp;&emsp;第一步翻转句子中所有的字符。比如翻转"I am a student."中所有的字符得到'.tneduts a ma I"，此时不但翻转了句子中单词的顺序，连单词内的字符顺序也被翻转了 。第二步再翻转每个单词中字符的顺序，就得到了"student. a am I"。句子中，单词被空格符号分隔，因此我们可以通过扫描空格来确定每个单词的起始和终止位置。
