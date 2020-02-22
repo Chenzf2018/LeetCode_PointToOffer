@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5d807d9-26ad-44b2-8644-9127a2d7c9a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ReverseSentence.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LeftRotateString.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegularExpressionMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegularExpressionMatching.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../剑指Offer.md" beforeDir="false" afterPath="$PROJECT_DIR$/../剑指Offer.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,22 +26,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="5" />
+          <entry key="java" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="5" />
+          <entry key="JAVA" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="786" />
+          <entry key="java" value="1186" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="786" />
+          <entry key="JAVA" value="1186" />
         </counts>
       </usages-collector>
     </session>
@@ -50,14 +49,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ReverseSentence.java">
+        <entry file="file://$PROJECT_DIR$/src/LeftRotateString.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-              <folding>
-                <element signature="e#675#676#0" expanded="true" />
-                <element signature="e#730#731#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="748">
+              <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -80,6 +75,7 @@
         <option value="$PROJECT_DIR$/src/NumberStrings.java" />
         <option value="$PROJECT_DIR$/src/RegularExpressionMatching.java" />
         <option value="$PROJECT_DIR$/src/ReverseSentence.java" />
+        <option value="$PROJECT_DIR$/src/LeftRotateString.java" />
       </list>
     </option>
   </component>
@@ -132,7 +128,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1582370781731" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1582372559233" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -149,7 +145,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ReverseSentence">
+  <component name="RunManager" selected="Application.LeftRotateString">
+    <configuration name="LeftRotateString" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LeftRotateString" />
+      <module name="PointToOffer" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="NumberStrings" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="NumberStrings" />
       <module name="PointToOffer" />
@@ -175,9 +178,11 @@
       <item itemvalue="Application.RegularExpressionMatching" />
       <item itemvalue="Application.NumberStrings" />
       <item itemvalue="Application.ReverseSentence" />
+      <item itemvalue="Application.LeftRotateString" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LeftRotateString" />
         <item itemvalue="Application.ReverseSentence" />
         <item itemvalue="Application.NumberStrings" />
         <item itemvalue="Application.RegularExpressionMatching" />
@@ -196,18 +201,18 @@
       <updated>1582259451289</updated>
       <workItem from="1582259454354" duration="1735000" />
       <workItem from="1582292283393" duration="2888000" />
-      <workItem from="1582350014881" duration="4332000" />
+      <workItem from="1582350014881" duration="5784000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8955000" />
+    <option name="totallyTimeSpent" value="10407000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="1013" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2563574" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2563574" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -251,13 +256,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RegularExpressionMatching.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ReplaceSpaces.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -265,14 +263,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/RegularExpressionMatching.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ReverseSentence.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+        <state relative-caret-position="462">
+          <caret line="21" column="13" lean-forward="true" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
           <folding>
             <element signature="e#675#676#0" expanded="true" />
             <element signature="e#730#731#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LeftRotateString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
         </state>
       </provider>
     </entry>

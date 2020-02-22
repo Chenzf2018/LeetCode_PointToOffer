@@ -240,4 +240,85 @@ P284
 &emsp;&emsp;输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入字符串"I am a student."，则输出"student. a am I"。
 
 **解析**：
-&emsp;&emsp;第一步翻转句子中所有的字符。比如翻转"I am a student."中所有的字符得到'.tneduts a ma I"，此时不但翻转了句子中单词的顺序，连单词内的字符顺序也被翻转了 。第二步再翻转每个单词中字符的顺序，就得到了"student. a am I"。句子中，单词被空格符号分隔，因此我们可以通过扫描空格来确定每个单词的起始和终止位置。
+&emsp;&emsp;方法一：第一步翻转句子中所有的字符。比如翻转"I am a student."中所有的字符得到".tneduts a ma I"，此时不但翻转了句子中单词的顺序，连单词内的字符顺序也被翻转了。第二步再翻转每个单词中字符的顺序，就得到了"student. a am I"。句子中，单词被空格符号分隔，因此我们可以通过扫描空格来确定每个单词的起始和终止位置。
+
+&emsp;&emsp;方法二：将单词放入数组中，只翻转数组中单词的位置，不改变单词内字母的位置。
+```java
+public class ReverseSentence
+{
+    private static String reverseSentence(String str)
+    {
+        if (str == null || str.trim().equals("")) // "" or " "
+            return str;
+
+        String[] strings = str.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = strings.length - 1; i >= 0; i--)
+        {
+            if (i == 0)
+                stringBuilder.append(strings[0]);
+            else
+            {
+                stringBuilder.append(strings[i]);
+                stringBuilder.append(" ");
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println(reverseSentence(""));
+    }
+}
+```
+
+#### 58.2.左旋转字符串
+P286
+&emsp;&emsp;汇编语言中有一种移位指令叫做循环左移(ROL)，现在有个简单的任务，就是用字符串模拟这个指令的运算结果。对于一个给定的字符序列S，请你把其循环左移K位后的序列输出。例如，字符序列S=”abcXYZdef”，要求输出循环左移3位后的结果，即“XYZdefabc”。
+
+字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串 "abcdefg"和数字2, 该函数将返回左旋转两位得到的结果"cdefgab"。
+
+**解析**：
+&emsp;&emsp;以"abcdefg"为例，我们可以把它分为两部分。由于想把它的前两个字符移到后面，我们就把前两个字符分到第一部分；把后面的所有字符分到第二部分。我们先分别翻转这两部分，于是就得到"bagfedc"。接下来翻转整个字符串，得到的"cdefgab"刚好就是把原始字符串 左旋转两位的结果。
+```java
+/**
+ * 58.2.左旋转字符串
+ * P286
+ */
+
+public class LeftRotateString
+{
+    private static String leftRotateString(String str, int n)
+    {
+        char[] chars = str.toCharArray();
+        if (chars.length < n)
+            return "";
+        reverse(chars, 0, n - 1);
+        reverse(chars, n, chars.length - 1);
+        reverse(chars, 0, chars.length - 1);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char c : chars)
+            stringBuilder.append(c);
+        return stringBuilder.toString();
+    }
+
+    private static void reverse(char[] chars, int low, int high)
+    {
+        while (low < high)
+        {
+            char temp = chars[low];
+            chars[low] = chars[high];
+            chars[high] = temp;
+            low++;high--;
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        String string = "abcdefg";
+        int n = 2;
+        System.out.println(leftRotateString(string, n));
+    }
+}
+```
