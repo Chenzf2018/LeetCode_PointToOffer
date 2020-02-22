@@ -365,3 +365,102 @@ public class LeftRotateString
     }
 }
 ```
+
+#### 67.把字符串转换成整数
+P318
+&emsp;&emsp;将一个字符串转换成一个整数，要求不能使用字符串转换整数的库函数。数值为0或者字符串不是一个合法的数值则返回0。输入：1a33；输出：0。
+```java {.line-numbers highlight=46}
+/**
+ * 67.把字符串转换成整数
+ * P318
+ */
+
+public class StrToInt
+{
+    private static int strToInt(String str)
+    {
+        if (str == null || str.length() == 0)  // 想想str == null和str.length() == 0的区别
+            return 0;
+            //throw new Exception("待转换字符串为null或空串");
+        int tag;  // 首位是否'-'
+        int start;  // 遍历从何处开始
+        if (str.charAt(0) == '+') {tag  = 1; start = 1;}
+        else if (str.charAt(0) == '-'){tag = 0; start = 1;}
+        else {tag = 1; start = 0;}
+
+        long result = 0;
+        for (int i = start; i < str.length(); i++)
+        {
+            char temp = str.charAt(i);
+            if (temp >= '0' && temp <= '9')
+            {
+                result = result * 10 + (temp - '0');
+                if (tag == 1 && result > Integer.MAX_VALUE)
+                    throw new RuntimeException("上溢出");
+                if (tag == 0 && result < Integer.MIN_VALUE)
+                    throw new RuntimeException("下溢出");  // 输入-2147483649并未出现下溢出
+            }
+            else
+                return 0;
+        }
+
+        if (tag == 0)
+            return (int) (-1 * result);
+        else
+            return (int) result;
+    }
+
+    public static void main(String[] args)
+    {
+        //System.out.println(strToInt("2147483648"));  //上溢出
+        System.out.println(strToInt("2147483647"));  //2147483647
+        System.out.println(strToInt("-2147483648")); // -2147483648
+        System.out.println(strToInt("-2147483649")); //2147483647
+    }
+}
+```
+<font color=red>没有解决“下溢出”问题</font>，错误结果如代码第46行所示！
+
+把对最大值和最小值的处理放在for循环外：
+
+```java
+/**
+ * 67.把字符串转换成整数
+ * P318
+ */
+
+public class StrToInt
+{
+    private static int strToInt(String str)
+    {
+        if (str == null || str.length() == 0)  // 想想str == null和str.length() == 0的区别
+            return 0;
+        boolean isNegative = str.charAt(0) == '-';  // 是'-'则为true
+        long result = 0;  // 避免溢出
+        for (int i = 0; i < str.length(); i++)
+        {
+            char aChar = str.charAt(i);
+            if (i == 0 && (aChar == '+' || aChar == '-'))  // 符号判定
+                continue;
+            if (aChar < '0' || aChar > '9')  // 非法输入
+                return 0;
+            result = result * 10 + (aChar - '0');
+        }
+        // 处理最大正数，最大负数
+        if (isNegative && (-result) < (-2147483648))
+            throw new RuntimeException("下溢出");
+        else if (!isNegative && result > 2147483647)
+            throw new RuntimeException("上溢出");
+        return isNegative ? (int)(-result) : (int)result;
+    }
+
+    public static void main(String[] args)
+    {
+        //System.out.println(strToInt("2147483648"));  //上溢出
+        System.out.println(strToInt("2147483647"));  //2147483647
+        System.out.println(strToInt("-2147483648")); // -2147483648
+        //System.out.println(strToInt("-2147483649")); //下溢出
+        System.out.println(strToInt("-"));
+    }
+}
+```

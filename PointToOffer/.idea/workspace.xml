@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5d807d9-26ad-44b2-8644-9127a2d7c9a1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/StrToInt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReverseSentence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReverseSentence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReverseSentence1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReverseSentence1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../剑指Offer.md" beforeDir="false" afterPath="$PROJECT_DIR$/../剑指Offer.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,23 +26,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="10" />
+          <entry key="java" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="10" />
+          <entry key="JAVA" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1827" />
+          <entry key="java" value="3628" />
           <entry key="txt" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1827" />
+          <entry key="JAVA" value="3628" />
           <entry key="PLAIN_TEXT" value="12" />
         </counts>
       </usages-collector>
@@ -50,37 +50,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ReverseSentence.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="29" column="59" selection-start-line="29" selection-start-column="59" selection-end-line="29" selection-end-column="59" />
-              <folding>
-                <element signature="e#689#690#0" expanded="true" />
-                <element signature="e#744#745#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ReverseSentence1.java">
+        <entry file="file://$PROJECT_DIR$/src/StrToInt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-              <folding>
-                <element signature="e#954#955#0" expanded="true" />
-                <element signature="e#975#976#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LeftRotateString.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
+            <state relative-caret-position="406">
+              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -109,6 +83,7 @@
         <option value="$PROJECT_DIR$/src/LeftRotateString.java" />
         <option value="$PROJECT_DIR$/src/ReverseSentence.java" />
         <option value="$PROJECT_DIR$/src/ReverseSentence1.java" />
+        <option value="$PROJECT_DIR$/src/StrToInt.java" />
       </list>
     </option>
   </component>
@@ -126,7 +101,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-12" />
     <option name="y" value="-12" />
     <option name="width" value="3026" />
@@ -161,7 +136,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1582375087516" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1582384873527" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -178,7 +153,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ReverseSentence1">
+  <component name="RunManager" selected="Application.StrToInt">
     <configuration name="LeftRotateString" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="LeftRotateString" />
       <module name="PointToOffer" />
@@ -188,13 +163,6 @@
     </configuration>
     <configuration name="NumberStrings" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="NumberStrings" />
-      <module name="PointToOffer" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RegularExpressionMatching" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="RegularExpressionMatching" />
       <module name="PointToOffer" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -214,20 +182,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StrToInt" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="StrToInt" />
+      <module name="PointToOffer" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Application.RegularExpressionMatching" />
       <item itemvalue="Application.NumberStrings" />
       <item itemvalue="Application.ReverseSentence" />
       <item itemvalue="Application.LeftRotateString" />
       <item itemvalue="Application.ReverseSentence1" />
+      <item itemvalue="Application.StrToInt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StrToInt" />
         <item itemvalue="Application.ReverseSentence1" />
         <item itemvalue="Application.ReverseSentence" />
         <item itemvalue="Application.LeftRotateString" />
         <item itemvalue="Application.NumberStrings" />
-        <item itemvalue="Application.RegularExpressionMatching" />
       </list>
     </recent_temporary>
   </component>
@@ -243,7 +218,7 @@
       <updated>1582259451289</updated>
       <workItem from="1582259454354" duration="1735000" />
       <workItem from="1582292283393" duration="2888000" />
-      <workItem from="1582350014881" duration="7934000" />
+      <workItem from="1582350014881" duration="16856000" />
     </task>
     <task id="LOCAL-00001" summary="翻转单词顺序，添加方法一">
       <created>1582373771043</created>
@@ -256,7 +231,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12557000" />
+    <option name="totallyTimeSpent" value="21479000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="1013" extended-state="6" />
@@ -335,6 +310,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReverseSentence1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+          <folding>
+            <element signature="e#954#955#0" expanded="true" />
+            <element signature="e#975#976#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/LeftRotateString.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -342,14 +328,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ReverseSentence1.java">
+    <entry file="file://$PROJECT_DIR$/src/StrToInt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-          <folding>
-            <element signature="e#954#955#0" expanded="true" />
-            <element signature="e#975#976#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="406">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
         </state>
       </provider>
     </entry>
