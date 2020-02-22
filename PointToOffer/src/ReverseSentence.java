@@ -27,6 +27,6 @@ public class ReverseSentence
 
     public static void main(String[] args)
     {
-        System.out.println(reverseSentence(""));
+        System.out.println(reverseSentence("I am a student."));
     }
 }

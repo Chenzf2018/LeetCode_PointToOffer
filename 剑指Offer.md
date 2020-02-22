@@ -241,6 +241,49 @@ P284
 
 **解析**：
 &emsp;&emsp;方法一：第一步翻转句子中所有的字符。比如翻转"I am a student."中所有的字符得到".tneduts a ma I"，此时不但翻转了句子中单词的顺序，连单词内的字符顺序也被翻转了。第二步再翻转每个单词中字符的顺序，就得到了"student. a am I"。句子中，单词被空格符号分隔，因此我们可以通过扫描空格来确定每个单词的起始和终止位置。
+```java
+/**
+ * 58.翻转单词顺序 P284
+ * 方法一
+ */
+
+public class ReverseSentence
+{
+    private static String reverseSentence(String str)
+    {
+        char[] chars = str.toCharArray();
+        reverse(chars, 0, chars.length - 1);
+        int blank = -1;
+        for (int i = 0; i < chars.length; i++)  // 不会对最后一个单词进行翻转处理
+        {
+            if (chars[i] == ' ')  // 找到最后一个单词前的空格就结束了
+            {
+                int nextBlank = i;
+                reverse(chars, blank + 1, nextBlank - 1);
+                blank = nextBlank;
+            }
+        }
+        reverse(chars, blank + 1, chars.length - 1);  // 最后一个单词单独进行翻转
+        return new String(chars);
+    }
+
+    private static void reverse(char[] chars, int low, int high)
+    {
+        while (low < high)
+        {
+            char temp = chars[high];
+            chars[high] = chars[low];
+            chars[low] = temp;
+            low++;high--;
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println(reverseSentence("student. a am I"));
+    }
+}
+```
 
 &emsp;&emsp;方法二：将单词放入数组中，只翻转数组中单词的位置，不改变单词内字母的位置。
 ```java
