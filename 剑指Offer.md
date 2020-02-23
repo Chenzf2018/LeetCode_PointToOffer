@@ -470,7 +470,7 @@ public class StrToInt
 ### 栈和队列
 &emsp;&emsp;栈的特点是后进先出，即最后被压入(push)栈的元素会第一个被弹出(pop)。通常栈是一个不考虑排序的数据结构，我们需要$O(n)$时间才能找到栈中最大或者最小的元素。和栈个同的是，队列的特点是先进先出。  
 
-#### 9.用两个栈实现队列
+#### <span id="9">9.用两个栈实现队列</span>
 P68
 &emsp;&emsp;用两个栈实现一个队列。队列的声明如下，请实现它的两个函数push(appendTail)和pop(deleteHead), 分别完成在队列尾部插入节点和在队列头部删除节点的功能。队列中的元素为int类型。
 
@@ -517,6 +517,25 @@ public class QueueWithTwoStacks
     }
 }
 ```
+Test.java
+```java
+public class Test
+{
+    public static void main(String[] args)
+    {
+        StackWithMin stackWithMin = new StackWithMin();
+        stackWithMin.push(1);
+        stackWithMin.push(2);
+        stackWithMin.push(0);
+        stackWithMin.push(3);
+        System.out.println(stackWithMin.min());
+        stackWithMin.pop();
+        stackWithMin.pop();
+        System.out.println(stackWithMin.min());
+    }
+}
+
+```
 
 用两个栈实现一个队列的功能：
 入队：将元素进栈A；
@@ -526,7 +545,7 @@ public class QueueWithTwoStacks
 入栈：将元素进队列A；
 出栈：判断队列A中元素的个数是否为1，如果等于1，则出队列；否则将队列A中的元素依次出队列并放入队列B，直到队列A中的元素留下一个，然后队列A出队列，再把队列B中的元素出队列依次放入队列A中。
 
-#### 30.包含min函数的栈
+#### <span id="30">30.包含min函数的栈</span>
 P165
 &emsp;&emsp;定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的min函数。在该栈中，调用*min()、push()* 及*pop()* 的时间复杂度都是$O(1)$。要保证测试中，不会当栈为空的时候，对栈调用pop()或者min()或者top()方法。
 
@@ -543,3 +562,181 @@ P165
 <font color=red>当<u>最小元素从数据栈内被弹出</u>之后，同时弹出辅助栈的栈顶元素</font>，此时辅助栈的新栈顶元素就是下一个最小值。
 
 比如在第四步之后，栈内的最小元素是1。当第五步在数据栈内弹出1后，把辅助栈的栈顶弹出，辅助栈的栈顶元素2就是新的最小元素。接下来继续弹出数据栈和辅助栈的栈顶之后，数据栈还剩下3、4两个数字，3是最小值。此时位于辅助栈的栈顶数字正好也是3，的确是最小值。
+
+#### 31.栈的压入、弹出序列
+P168
+&emsp;&emsp;输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列{1,2,3,4,5}是某栈的压栈序列，<font color=red>序列{4,5,3,2,1}</font>是该压栈序列对应的一个弹出序列，但<font color=red>{4,3,5,1,2}</font>(与前面一个序列不同)就不可能是该压栈序列的弹出序列。
+
+**解析**：
+&emsp;&emsp;先理解题意：<font color=red>栈的大小不一定！</font>假设有一串数字要将他们压栈:{1,2,3,4,5}，如果这个栈是足够大的，那么一次性全部压进去，再出栈：{5,4,3,2,1}。但是，<font color=red>如果这个栈高度为4</font>，1,2,3,4都顺利入栈，但是满了，那么要先出栈一个，才能入栈，那么就是先出4，然后压入5，随后再全部出栈：{4,5,3,2,1}。
+
+&emsp;&emsp;建立一个<font color=red>辅助栈(模拟栈的压入和弹出过程)</font>，把输入的第一个序列中的数字依次压入该辅助栈，并按照第二个序列的顺序依次从该栈中弹出数字。
+
+以弹出序列{4,5,3,2,1}为例分析压栈和弹出的过程。第一个希望被弹出的数字是4，那么辅助序列压入的数依次为{1,2,3,4}，然后弹出4变为{1,2,3}；第二个希望被弹出的数字是5，那么此时辅助序列压入5变成{1,2,3,5}，以此类推整个过程：
+<div align=center><img src=PointToOffer_Images/辅助序列压入弹出过程.png></div>
+
+&emsp;&emsp;按照压入序列的顺序，将元素压入辅助序列；如果下一个弹出的数字(参照弹出序列)刚好是此时辅助序列栈顶数字，那么直接从辅助序列弹出该数字；如果下一个弹出的数字(<font color=red>弹出一个数字就参考弹出序列下一个元素</font>)不在栈顶，则把压栈序列中还没有入栈的数字压入辅助栈，直到把下一个需要弹出的数字压入栈顶为止；如果所有数字都压入栈后仍然没有找到下一个弹出的数字，那么该序列不可能是一个弹出序列。
+```java
+/**
+ * 31.栈的压入、弹出序列
+ * P168
+ */
+
+import java.util.Stack;
+
+public class IsPopOrder
+{
+    public static boolean isPopOrder(int[] pushA, int[] popA)
+    {
+        if (pushA == null || popA == null || pushA.length == 0 || popA.length == 0 || pushA.length != popA.length)
+            return false;
+        Stack<Integer> stack = new Stack<>();  // 辅助栈
+        // 模拟pushA入栈--进入栈s，popA出栈--弹出s栈顶；若popA合法，则s最后一定是空的
+        for (int i = 0, popIndex = 0; i < pushA.length; i++)
+        {
+            stack.push(pushA[i]);  // 将压入栈中元素压入辅助栈
+            while (! stack.empty() && stack.peek() == popA[popIndex])
+            {
+                // 弹出一个,继续比较下一个是否还可以弹出；辅助栈栈顶和popA相同则出栈，且popIndex++
+                stack.pop();
+                popIndex++;
+            }
+        }
+        return stack.empty();
+    }
+
+    public static void main(String[] args)
+    {
+        int[] push = {1, 2, 3, 4, 5};
+        int[] pop1 = {4, 5, 3, 2, 1};
+        int[] pop2 = {4, 3, 5, 1, 2};
+        System.out.println(isPopOrder(push,pop1));
+        System.out.println(isPopOrder(push,pop2));
+    }
+}
+```
+
+#### 59.1 滑动窗口的最大值
+P288
+&emsp;&emsp;给定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}：
+针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个：
+  {[2,3,4],2,6,2,5,1}，{2,[3,4,2],6,2,5,1}，{2,3,[4,2,6],2,5,1}，
+  {2,3,4,[2,6,2],5,1}，{2,3,4,2,[6,2,5],1}，{2,3,4,2,6,[2,5,1]}。
+
+**解析**：
+&emsp;&emsp;方法一(采用蛮力法)：可以扫描每个滑动窗口的所有数字并找出其中的最大值。如果滑动窗口的大小为$k$，则需要$O(k)$时间才能找出滑动窗口里的最大值。对于长度为$n$的输入数组，这种算法的总时间复杂度是$O(nk)$。
+```java
+/*
+ * 59.1 滑动窗口的最大值
+ * P288
+ * 暴力解法
+ */
+
+import java.util.ArrayList;
+
+public class MaxInWindows
+{
+    /**
+     *
+     * @param num 数组
+     * @param size 窗口大小
+     * @return 所有滑动窗口里数值的最大值
+     */
+    private static ArrayList<Integer> maxInWindows(int[] num, int size)
+    {
+        ArrayList<Integer> maximumInWindow = new ArrayList<>();
+        if (num == null || size < 1 || size > num.length)
+            return maximumInWindow;
+        //preMaxIndex上一个滑动窗口最大值的下标
+        int preMaxIndex = findIndexOfMax(num, 0, size - 1); // 第一个窗口中最大值的下标
+        maximumInWindow.add(num[preMaxIndex]);  // 将第一个窗口中得到的最大值放入数组链表中
+        // 从数组的index=1处开始在下一个窗口中找最大值
+        for (int start = 1, end = size; start <= (num.length - size); start++, end++)
+        {
+            int newMaxIndex = maxNumIndexOfWindow(num, preMaxIndex, start, end);
+            //maximumInWindow.add(newMaxIndex);
+            maximumInWindow.add(num[newMaxIndex]);
+            preMaxIndex = newMaxIndex;
+        }
+        return maximumInWindow;
+    }
+
+    /**
+     *
+     * @param num 数组
+     * @param start 窗口开始位置
+     * @param end 窗口结束位置
+     * @return 返回数组[start,end]范围内的最大值的下标
+     */
+    private static int findIndexOfMax(int[] num, int start, int end)
+    {
+        int max = num[start];
+        int maxIndex = start;
+        for (int i = start; i <= end; i++)
+        {
+            if (num[i] >= max)
+            {
+                //max = num[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+    /**
+     *
+     * @param num 数组
+     * @param preMaxIndex 上一个滑动窗口最大值的下标
+     * @param start 窗口起始处
+     * @param end 窗口截止处
+     * @return 新窗口中最大值的下标
+     */
+    private static int maxNumIndexOfWindow(int[] num, int preMaxIndex, int start, int end)
+    {
+        if (start <= preMaxIndex && preMaxIndex <= end)
+        {
+            // 如果preMaxIndex在新的滑动窗口[start,end]之间
+            // 则判断上一个最大值与新增的一个值num[end]比较大小，返回index
+            return (num[preMaxIndex] <= num[end]) ? end : preMaxIndex;
+        }
+        else
+        {
+            // 如果preMaxIndex不在新的滑动窗口[start,end]之间
+            // 直接找新滑动窗口的最大值的下标
+            return findIndexOfMax(num, start, end);
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        int[] num = {2, 3, 4, 2, 6, 2, 5, 1};
+        int size = 3;
+        System.out.println(maxInWindows(num, size));
+    }
+}
+```
+
+&emsp;&emsp;方法二：实际上，<font color=red>一个滑动窗口可以看成一个队列</font>。当窗口滑动时，处于窗口的第一个数字被删除，同时在窗口的末尾添加一个新的数字</font>。这符合队列的“先进先出”特性。如果能从队列中找出它的最大数， 那么这个问题也就解决了。
+
+在[30.包含min函数的栈](#30)中，实现了一个可以用$O(1)$时间得到最小值的栈。同样，也可以用$O(1)$时间得到栈的最大值。同时在[9.用两个栈实现队列](#9)中，讨论了如何用两个栈实现一个队列。综合这两个问题的解决方案，如果把队列用两个栈实现，由于可以用$O(1)$ 时间得到栈中的最大值，那么也就可以用$O(1)$时间得到队列的最大值，因此总的时间复杂度也就降到了$O(n)$。
+
+&emsp;&emsp;方法三：不把滑动窗口的每个数值都存入队列，而是只把有可能成为滑动窗口最大值的数值存入一个两端开口的队列。
+
+以数组{2,3,4,2,6,2,5,1}为例：数组的第一个数字是2, 把它存入队列。第二个数字是3, 由于它比前一个数字2大，因此2不可能成为滑动窗口中的最大值。先把2从队列里删除，再把3存入队列。此时队列中只有一个数字3。针对第三个数字4的步骤类似，最终在队列中只剩下一个数字4。此时滑动窗口中已经有3个数字，而它的最大值4位于队列的头部。
+
+接下来处理第四个数字2。2比队列中的数字4小。当4滑出窗口之后，2还是有可能成为滑动窗口中的最大值，因此把2存入队列的尾部。现在队列中有两个数字4和2，其中最大值4仍然位于队列的头部。
+
+第五个数字是6。由于它比队列中已有的两个数字4和2都大，因此这时4和2已经不可能成为滑动窗口中的最大值了。先把4和2从队列中删除，再把数字6存入队列。这时候最大值6仍然位于队列的头部。
+
+第六个数字是2。由于它比队列中已有的数字6小，所以把2也存入队列的尾部。此时队列中有两个数字，其中最大值6位于队列的头部。
+
+第七个数字是5。在队列中已有的两个数字6和2里，2小于5，因此2不可能是一个滑动窗口的最大值，可以把它从队列的尾部删除。删除数字2之后，再把数字5存入队列。此时队列里剩下两个数字6和5，其中位于队列头部的是最大值6。
+
+数组最后一个数字是1，把1存入队列的尾部。注意到位于队列头部的数字6是数组的第五个数字，此时的滑动窗口已经不包括这个数字了，因此应该把数字6从队列中删除。那么怎么知道滑动窗口是否包括一个数字？应该在队列里存入数字在数组里的下标，而不是数值。<font color=red>当一个数字的下标与当前处理的数字的下标之差大于或者等于滑动窗门的大小时，这个数字已经从窗口中滑出，可以从队列中删除了</font>。
+
+<font color=red>滑动窗口的最大值总是位于队列的头部</font>：
+<div align=center><img src=PointToOffer_Images/滑动窗口.png></div>
+
+&emsp;&emsp;总结：把可能成为最大值数字的下标放入双端队列deque，从而减少遍历次数。首先，所有在没有查看后面数字的情况下，任何一个节点都有可能成为某个状态的滑动窗口的最大值，因此，数组中任何一个元素的下标都会入队。关键在于出队，以下两种情况下，该下标对应的数字不会是窗口的最大值需要出队：
+(1)该下标已经在窗口之外，比如窗口长度为3，下标5入队，那么最大值只可能在下标3,4,5中出现，队列中如果有下标2则需要出队；
+(2)后一个元素大于前面的元素，那么前面的元素出队，比如目前队列中有下标3、4，data[3]=50，data[4]=40，下标5入队，但data[5]=70，则队列中的3，4都需要出队。
