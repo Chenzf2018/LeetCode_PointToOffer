@@ -24,13 +24,14 @@ public class Test
   }
 }
 ```
-##### 解题思路
+**解题思路**
 思路详解见《剑指Offer》P51
 
 &emsp;&emsp;先遍历一次字符串，计算出替换后字符串的总长度；<font color=red>从字符串的后面开始复制和替换</font>：<font color=red>准备两个指针$P_{1}$和$P_{2}$。$P_{1}$指向原始字符串的末尾，$P_{2}$指向替换后字符串的末尾</font>。向前移动指针$P_{1}$，逐个把它指向的字符复制到$P_{2}$指向的位置，直到碰到空格为止。碰到空格后，把$P_{1}$向前移动1格，在$P_{2}$之前插入字符串"%20"，将$P_{2}$向前移动3格。接着按上述方法复制。当$P_{1}$和$P_{2}$指向同一位置时，表明所有空格都已经替换完毕！
 
 &emsp;&emsp;所有的字符都只复制一次，因此这个算法的时间效率是$O\left ( n \right )$。
-##### ReplaceSpaces_5.java
+
+**ReplaceSpaces_5.java**
 ```Java
 public class ReplaceSpaces_5
 {
@@ -71,7 +72,8 @@ public class ReplaceSpaces_5
 }
 ```
 
-##### ReplaceSpaces.java
+下面的方法，空间复杂度提高了！
+**ReplaceSpaces.java**
 ```java {.line-numbers highlight=12}
 /**
  * 5.替换空格
@@ -464,3 +466,24 @@ public class StrToInt
     }
 }
 ```
+
+### 栈和队列
+&emsp;&emsp;栈的特点是后进先出，即最后被压入(push)栈的元素会第一个被弹出(pop)。通常栈是一个不考虑排序的数据结构，我们需要$O(n)$时间才能找到栈中最大或者最小的元素。和栈个同的是，队列的特点是先进先出。  
+
+#### 9.用两个栈实现队列
+P68
+&emsp;&emsp;用两个栈实现一个队列。队列的声明如下，请实现它的两个函数push(appendTail)和pop(deleteHead), 分别完成在队列尾部插入节点和在队列头部删除节点的功能。队列中的元素为int类型。
+
+**解析**：
+&emsp;&emsp;首先插入一个元素a，把它插入stack1，此时stack1中的元素有{a}，stack2为空。再压入两个元素b和c，还是插入stack1，此时stack1中的元素有{a, b, c}，其中c位于栈顶，而stack2仍然是空的，如图(a)所示：
+<div align=center><img src=PointToOffer_Images/用两个栈模拟一个队列的橾作.png width=80%></div>
+
+&emsp;&emsp;这时候我们试着从队列中删除一个元素。按照队列先入先出的规则，最先被删除的元素应该是a。元素a存储在stack1中，但并不在栈顶上，因此不能直接进行删除。可以把stack1中的元素逐个弹出并压入stack2。因此经过3次弹出stack1和压入stack2的操作之后，stack1为空，而stack2中的元素是{c,b,a}，这时候就可以弹出stack2的栈顶a了。此时stack2的元素为{c, b}，其中b在栈顶，如图(b)所示。
+
+如果我们还想继续删除队列的头部应该怎么办呢？剩下的两个元素是b和c，此时b恰好在栈顶上，因此直接弹出stack2的栈顶即可。
+
+&emsp;&emsp;从上面的分析中我们可以总结出删除一个元素的步骤：当stack2不为空时，在stack2中的栈顶元素是最先进入队列的元素，可以弹出。当stack2为空时，我们把stack1中的元素逐个弹出并压入stack2。由于先进入队列的元素被压到stack1的底端，经过弹出和压入操作之后就处于stack2的顶端，又可以直接弹出。(<font color=red>stack2如果不空，想再添加元素并推出时，得先将stack2清空</font>)
+
+&emsp;&emsp;接下来再插入一个元素d。得把它压入stack1，如图(d)所示。考虑下一次删除队列的头部stack2不为空，直接弹出它的栈顶元素c，如图(e)所示。而c的确比d先进入队列，应该在d之前从队列中删除，因此不会出现任何矛盾。
+
+&emsp;&emsp;总结下，stack1负责插入，stack2负责弹出。如果stack2为空了，将stack1的元素依次**全部**弹出并存放到stack2中，之后对stack2进行弹出操作。**<font color=red>*push*操作只需包含将元素压入stack1；*pop()* 操作包含：先将stack2弹空，再将stack1中元素压入stack2中</font>**。
