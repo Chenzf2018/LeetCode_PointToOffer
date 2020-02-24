@@ -740,3 +740,104 @@ public class MaxInWindows
 &emsp;&emsp;总结：把可能成为最大值数字的下标放入双端队列deque，从而减少遍历次数。首先，所有在没有查看后面数字的情况下，任何一个节点都有可能成为某个状态的滑动窗口的最大值，因此，数组中任何一个元素的下标都会入队。关键在于出队，以下两种情况下，该下标对应的数字不会是窗口的最大值需要出队：
 (1)该下标已经在窗口之外，比如窗口长度为3，下标5入队，那么最大值只可能在下标3,4,5中出现，队列中如果有下标2则需要出队；
 (2)后一个元素大于前面的元素，那么前面的元素出队，比如目前队列中有下标3、4，data[3]=50，data[4]=40，下标5入队，但data[5]=70，则队列中的3，4都需要出队。
+
+#### 59.2队列的最大值(待更)
+P292
+&emsp;&emsp;定义一个队列并实现函数`max`得到队列里的最大值，要求函数`max, push_back`和`pop_front`的时间复杂度都是$O(1)$。
+
+
+### 链表
+&emsp;&emsp;链表应该是面试时被提及砐频繁的数据结构。链表的结构很简单，它由指针把若干个节点连接成链状结构。链表的创建、插入节点、删除节点等操作都只需要20行左右的代码就能实现，其代码量比较适合面试。而像哈希表、有向图等复杂数据结构，实现它们的一个操作需要的代码量都较大，很难在几十分钟的面试中完成。另外，由于链表是一种动态的数据结构，其需要对指针进行操作，因此应聘者需要有较好的编程功底才能写出完整的操作链表的代码。
+
+&emsp;&emsp;链表是一种动态数据结构，是因为在创建链表时，无须知道链表的长度。当插入一个节点时，只需要为新节点分配内存，然后调整指针的指向来确保新节点被链接到链表当中。内存分配不是在创建链表时一次性完成的，而是每添加一个节点分配一次内存。由于没有闲置的内存，链表的空间效率比数组高。
+
+#### 6.从尾到头打印链表
+P58
+&emsp;&emsp;输入一个链表的头节点，从尾到头反过来打印出每个节点的值。
+
+**解析**：
+&emsp;&emsp;把链表中链接节点的指针反转过来，改变链表的方向，然后就可以从头到尾输出了。但该方法会改变原来链表的结构。通常<font color=red>打印是一个只读操作</font>，我们不希望打印时修改内容。
+
+&emsp;&emsp;解决这个问题肯定要遍历链表。遍历的顺序是从头到尾，可输出的顺序却是从尾到头。也就是说，第一个遍历到的节点最后一个输出，而最后一个遍历到的节点第一个输出。这就是典型的“后进先出”，可以用栈实现这种顺序。<font color=red>每经过一个节点的时候，把该节点放到一个栈中。当遍历完整个链表后，再从栈顶开始逐个输出节点的值，此时输出的节点的顺序已经反转过来了。</font>
+```java
+/*
+6.从尾到头打印链表
+P58
+ */
+
+import java.util.Stack;
+import java.util.ArrayList;
+
+public class PrintListFromTailToHead
+{
+    /**
+     *
+     * @param listNode 链表结点，定义见ListNode.java
+     * @return 返回一个逆序的链表
+     */
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode)
+    {
+        Stack<Integer> stack = new Stack<>();
+        while (listNode != null)
+        {
+            stack.push(listNode.value);
+            listNode = listNode.next;
+        }
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        while (! stack.empty())
+            arrayList.add(stack.pop());
+        return arrayList;
+    }
+}
+```
+
+&emsp;&emsp;既然想到了用栈来实现这个函数，而<font color=red>递归在本质上就是一个栈结构</font>，于是很自然地又想到了用递归来实现。要实现反过来输出链表，我们每访问到一个节点的时候，先递归输出它后面的节点，再输出该节点自身，这样链表的输出结果就反过来了。但是，<font color=red>当链表非常长的时候，就会导致函数调用的层级很深，从而有可能导致函数调用栈溢出。显然用栈基千循环实现的代码的鲁棒性要好一些。</font>
+
+#### 18.在$O(1)$时间删除链表的节点(待更)
+P119
+
+
+#### 18.2.删除排序链表中重复的节点
+P122
+&emsp;&emsp;在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5。
+
+**解析**：
+&emsp;&emsp;头节点可能与后面的节点重复，也就是说头节点也可能被删除。
+```java
+/*
+18.2.删除排序链表中重复的节点
+P122
+ */
+
+public class DeleteDuplicatedNode
+{
+    public ListNode deleteDuplication(ListNode pHead)
+    {
+        if (pHead == null || pHead.next == null)
+            return pHead;
+        ListNode nextNode = pHead.next;
+        if (pHead.value == nextNode.value)
+        {
+            while (nextNode != null && pHead.value == nextNode.value)
+            {
+                // 跳过值与当前结点相同的全部结点,找到第一个与当前结点不同的结点
+                nextNode = nextNode.next;
+            }
+            return deleteDuplication(nextNode);  // 进入递归，重新赋值pHead，则前面相同的节点被舍弃
+        }
+        else
+        {
+            pHead.next = deleteDuplication(pHead.next);  
+            // 假设1->2->3，如果返回3，则pHead.next=3, pHead=2
+            return pHead;
+        }
+    }
+}
+```
+
+#### 22.链表中倒数第k个节点
+P134
+&emsp;&emsp;输入一个链表，输出该链表中倒数第$K$个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。例如，一个链表有6个节点，从头节点开始，它们的值依次是1,2,3,4,5,6。这个链表的倒数第3个节点是值为4的节点。
+
+**解析**：
+&emsp;&emsp;由于链表是单向链表，单向链表的节点只有从前往后的指针而没有从后往前的指针，因此“先走到链表的尾端，再从尾端回溯k步”的方法不可行。
