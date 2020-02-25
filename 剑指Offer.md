@@ -1087,3 +1087,83 @@ public class CloneLinkedListWithRandom
     }
 }
 ```
+
+#### 52.两个链表的第一个公共节点
+P253
+&emsp;&emsp;输入两个链表，找出它们的第一个公共节点。
+<div align=center><img src=PointToOffer_Images/两个有公共节点部分重合的链表.png width=60%></div>
+
+**解析**：
+&emsp;&emsp;思路一：在第一个链表上顺序遍历每个节点，每遍历到一个节点，就在第二个链表上顺序遍历每个节点。如果在第二个链表上有一个节点和第一个链表上的节点一样，则说明两个链表在这个节点上重合，于是就找到了它们的公共节点。如果链表的长度分别为$m$和$n$，那么时间复杂度是$O(m·n)$。
+
+&emsp;&emsp;思路二：如果两个链表有公共节点，那么公共节点出现在两个链表的尾部。如果我们<font color=red>从两个链表的尾部开始往前比较，那么最后一个相同的节点就是我们要找的节点</font>。但是，在单向链表中，只能从头节点开始按顺序遍历，最后才能到达尾节点。最后到达的尾节点却要最先被比较，这听起来像“后进先出”。于是可以分别把两个链表的节点放入两个栈里，这样两个链表的尾节点就位于两个栈的栈顶，接下来比较两个栈顶的节点是否相同。如果相同，则把栈顶弹出接着比较下一个栈顶，直到找到最后一个相同的节点。
+
+因此需要用两个辅助栈。如果链表的长度分别为$m$和$n$，那么空间复杂度是$O(m+n)$，其时间复杂度也是$O(m+n)$。和蛮力法相比，时间效率得到了提高，相当于用空间消耗换取了时间效率。
+
+&emsp;&emsp;思路三：之所以需要用到栈，是因为想<font color=red>同时遍历到达两个栈的尾节点。当两个链表的长度不相同时，如果我们从头开始遍历，那么到达尾节点的时间就不一致</font>。
+
+其实解决这个问题还有一种更简单的办法：首先遍历两个链表得到它们的长度，就能知道哪个链表比较长，以及长的链表比短的链表多几个节点。在第二次遍历的时候，在较长的链表上先走若干步，接着同时在两个链表上遍历，找到的第一个相同的节点就是它们的第一个公共节点。
+
+该方法时间复杂度是$O(m+n)$，不再需要辅助栈，因此提高了空间效率。
+
+```java
+/*
+52.两个链表的第一个公共节点
+P253
+ */
+
+public class FindFirstCommonNode
+{
+    public ListNode findFirstCommonNode(ListNode pHead1, ListNode pHead2)
+    {
+        if (pHead1 == null || pHead2 == null)
+            return null;
+
+        ListNode currentNode1 = pHead1;
+        ListNode currentNode2 = pHead2;
+        int length1 = getLength(currentNode1);
+        int lenght2 = getLength(currentNode2);
+
+        if (length1 > lenght2)
+        {
+            int step = length1 - lenght2;
+            // 先遍历链表1，遍历的长度就是两链表的长度差
+            while (step > 0)
+            {
+                currentNode1 = currentNode1.next;
+                step--;
+            }
+        }
+        else if (lenght2 > length1)
+        {
+            int step = lenght2 - length1;
+            while (step > 0)
+            {
+                currentNode2 = currentNode2.next;
+                step--;
+            }
+        }
+
+        //开始齐头并进，直到找到第一个公共结点
+        while (currentNode1 != currentNode2)
+        {
+            currentNode1 = currentNode1.next;
+            currentNode2 = currentNode2.next;
+        }
+        
+        return currentNode1;
+    }
+
+    private int getLength(ListNode pHead)
+    {
+        int length = 0;
+        ListNode currentNode = pHead;
+        while (currentNode != null)
+        {
+            currentNode = currentNode.next;
+            length++;
+        }
+        return length;
+    }
+}
+```
