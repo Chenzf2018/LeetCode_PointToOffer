@@ -972,3 +972,118 @@ public class ReverseList
 #### 25.合并两个排序的链表
 P145
 &emsp;&emsp;输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+```java
+/*
+25.合并两个排序的链表
+P145
+ */
+
+public class MergeTwoSortedLinkedList
+{
+    public ListNode merge(ListNode list1, ListNode list2)
+    {
+        //新建一个头节点，用来存合并的链表。
+        ListNode head = new ListNode(0);
+        ListNode root = head;
+        while (list1 != null && list2 != null)
+        {
+            if (list1.value < list2.value)
+            {
+                head.next = list1;
+                head = head.next;
+                list1 = list1.next;
+            }
+            else
+            {
+                head.next = list2;
+                head = head.next;
+                list2 = list2.next;
+            }
+        }
+        while (list1 != null)
+        {
+            head.next = list1;
+            head = head.next;
+            list1 = list1.next;
+        }
+        while (list2 != null)
+        {
+            head.next = list2;
+            head = head.next;
+            list2 = list2.next;
+        }
+        return root.next;
+    }
+}
+```
+
+#### 35.复杂链表的复制
+P187
+&emsp;&emsp;输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）
+<div align=center><img src=PointToOffer_Images/一个含有5个节点的复杂链表.png width=40%></div>
+
+**解析**：
+&emsp;&emsp;思路一：把复制过程分成两步：第一步是复制原始链表上的每个节点，并用pNext链接起来；第二步是设置每个节点的pSibling指针。假设原始链表中的某个节点N的pSibling指向节点S，由于S在链表中可能在N的前面也可能在N的后而，所以要定位S的位置需要从原始链表的头节点开始找。如果从原始链表的头节点开始沿着pNext经过m步找到节点S，那么在复制链表上，节点N'的pSibling（记为S'）离复制链表的头节点的距离也是沿着pNext指针m步。用这种办法就可以为复制链表上的每个节点设置pSibling指针。
+
+对于一个含有n个节点的链表，由于定位每个节点的pSibling都需要从链表头节点开始经过$O(n)$步才能找到，因此这种方法总的时间复杂度是$O(n^2)$。
+
+&emsp;&emsp;思路二：由于上述方法的时间主要花费在定位节点的pSibling上面，可以试着在这方面去进行优化。还是分为两步：第一步仍然是复制原始链表上的每个节点N 创建N'，然后把这些创建出来的节点用pNext链接起来。同时我们把<N, N'>的配对信息放到一个哈希表中；第二步还是设置复制链表上每个节点的pSibling。如果在原始链表中节点N的pSibling指向节点S，那么在复制链表中，对应的N'应该指向S'。由于有了哈希表，可以用$O(1)$的时间根据S找到S'。
+
+第二种方法相当于<font color=red>用空间换时间</font>。对于有n个节点的链表，需要一个大小为$O(n)$的哈希表，也就是说以$O(n)$的空间消耗，把时间复杂度由$O(n^2)$降低到$O(n)$。
+
+&emsp;&emsp;思路三：在不用辅助空间的情况下实现$O(n)$的时间效率。第三种方法的第一步仍然是根据原始链表的每个节点N创建对应的N'。这一次，把N'链接在N的后面：
+<div align=center><img src=PointToOffer_Images/复制复杂链表的第一步.png width=80%></div>
+
+第二步设置复制出来的节点的pSibling。假设原始链表上的N的pSibling指向节点S，那么其对应复制出来的N'是N的pNext指向的节点，同样S'也是S的pNext指向的节点：
+<div align=center><img src=PointToOffer_Images/复制复杂链表的第二步.png width=80%></div>
+
+第三步把这个长链表拆分成两个链表：把奇数位置的节点用pNext链接起来就是原始链表，把偶数位置的节点用pNext链接起来就是复制出来的链表：
+<div align=center><img src=PointToOffer_Images/复制复杂链表的第三步.png width=80%></div>
+
+```java
+/*
+35.复杂链表的复制
+P187
+ */
+
+public class CloneLinkedListWithRandom
+{
+    public RandomListNode clone(RandomListNode pHead)
+    {
+        if (pHead == null)
+            return null;
+
+        // 遍历链表，复制每个结点，如复制结点A得到A1，将结点A1插到结点A后面
+        RandomListNode currentNode = pHead;
+        while (currentNode != null)
+        {
+            RandomListNode cloneNode = new RandomListNode(currentNode.label);
+            cloneNode.next = currentNode.next;
+            currentNode.next = cloneNode;
+            currentNode = cloneNode.next;
+        }
+
+        // 重新遍历链表，复制老结点的随机指针给新结点，如A1.random = A.random.next;
+        currentNode = pHead;
+        while (currentNode != null)
+        {
+            currentNode.next.random = currentNode.random == null ? null : currentNode.random.next;
+            // 1->1'->2->2'：1.random=2, 1.random.next=2.next=2'
+            currentNode = currentNode.next.next;
+        }
+
+        // 拆分链表，将链表拆分为原链表和复制后的链表
+        currentNode = pHead;
+        RandomListNode pCloneHead = pHead.next;
+        while (currentNode != null)
+        {
+            RandomListNode cloneNode = currentNode.next;
+            currentNode.next = cloneNode.next;
+            cloneNode.next = cloneNode.next == null ? null : cloneNode.next.next;
+            currentNode = currentNode.next;
+        }
+
+        return pCloneHead;
+    }
+}
+```
