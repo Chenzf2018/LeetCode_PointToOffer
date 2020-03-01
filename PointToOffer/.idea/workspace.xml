@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5d807d9-26ad-44b2-8644-9127a2d7c9a1" name="Default Changelist" comment="学习9.用两个栈实现队列">
-      <change afterPath="$PROJECT_DIR$/src/FindMissingNumber.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GetNumberOfK.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MoreThanHalfNum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ReorderArray.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../剑指Offer.md" beforeDir="false" afterPath="$PROJECT_DIR$/../剑指Offer.md" afterDir="false" />
     </list>
@@ -21,31 +21,31 @@
           <entry key="project.closed" value="5" />
           <entry key="project.open.time.10" value="3" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.open.time.9" value="3" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="35" />
+          <entry key="java" value="37" />
           <entry key="md" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="35" />
+          <entry key="JAVA" value="37" />
           <entry key="Markdown" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="9880" />
+          <entry key="java" value="10524" />
           <entry key="txt" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="9880" />
+          <entry key="JAVA" value="10524" />
           <entry key="PLAIN_TEXT" value="17" />
         </counts>
       </usages-collector>
@@ -54,10 +54,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GetNumberOfK.java">
+        <entry file="file://$PROJECT_DIR$/src/ReorderArray.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
+            <state relative-caret-position="616">
+              <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -66,12 +66,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/FindMissingNumber.java">
+        <entry file="file://$PROJECT_DIR$/src/MoreThanHalfNum.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="763">
-              <caret line="36" column="8" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+            <state relative-caret-position="499">
+              <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
               <folding>
-                <element signature="e#0#49#0" expanded="true" />
+                <element signature="e#0#42#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,6 +93,7 @@
     <setting file="file://$PROJECT_DIR$/src/QueueWithTwoStacks.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/RandomListNode.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/LeftRotateString.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/MoreThanHalfNum.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/MergeTwoSortedLinkedList.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/ReverseSentence1.java" root0="SKIP_INSPECTION" />
   </component>
@@ -124,6 +125,8 @@
         <option value="$PROJECT_DIR$/src/MinNumberInRotateArray.java" />
         <option value="$PROJECT_DIR$/src/GetNumberOfK.java" />
         <option value="$PROJECT_DIR$/src/FindMissingNumber.java" />
+        <option value="$PROJECT_DIR$/src/ReorderArray.java" />
+        <option value="$PROJECT_DIR$/src/MoreThanHalfNum.java" />
       </list>
     </option>
   </component>
@@ -141,7 +144,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="y" value="-12" />
     <option name="width" value="3026" />
@@ -153,8 +156,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -176,7 +179,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1582714831592" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1583052647991" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -262,6 +265,7 @@
       <workItem from="1582429501811" duration="11068000" />
       <workItem from="1582533849848" duration="9986000" />
       <workItem from="1582599107244" duration="9584000" />
+      <workItem from="1583045162754" duration="2205000" />
     </task>
     <task id="LOCAL-00001" summary="翻转单词顺序，添加方法一">
       <created>1582373771043</created>
@@ -274,13 +278,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53010000" />
+    <option name="totallyTimeSpent" value="55215000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1513" height="1013" extended-state="7" />
+    <frame x="-6" y="-6" width="1513" height="1013" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26666668" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2701031" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -539,22 +543,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/FindMissingNumber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GetNumberOfK.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
+        <state relative-caret-position="352">
+          <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReorderArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FindMissingNumber.java">
+    <entry file="file://$PROJECT_DIR$/src/MoreThanHalfNum.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="36" column="8" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+        <state relative-caret-position="499">
+          <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
           <folding>
-            <element signature="e#0#49#0" expanded="true" />
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>
