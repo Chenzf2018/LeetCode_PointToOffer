@@ -1462,3 +1462,51 @@ public class MoreThanHalfNum
     }
 }
 ```
+
+#### 40.最小的k个数
+P209
+&emsp;&emsp;输入$n$个整数，找出其中最小的$k$个数。
+
+**解析**：
+&emsp;&emsp;思路一：把输入的$n$个整数排序，排序之后位于最前面的$k$个数就是最小的$k$个数。
+```java
+/*
+40.最小的k个数
+P209
+ */
+
+import java.util.ArrayList;
+
+public class GetLeastNumbers
+{
+    public ArrayList<Integer> getLeastNumbers(int[] input, int k)
+    {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        if (input == null || k > input.length || k == 0)
+            return arrayList;
+        for (int i = 0; i < k; i++)  // 只需要找到k个数即可
+        {
+            for (int j = 0; j < input.length - 1 - i; j++)
+            {
+                if (input[j] < input[j + 1])
+                {
+                    int temp = input[j + 1];
+                    input[j + 1] = input[j];
+                    input[j] = temp;
+                }
+            }
+
+            arrayList.add(input[input.length - 1 - i]);
+        }
+        
+        return arrayList;
+    }
+
+}
+```
+
+&emsp;&emsp;思路二：可以基于`Partition`函数来解决这个问题，时间复杂度是$O(n)$。如果基于数组的第$k$个数字来调整，则使得比第$k$个数字小的所有数字都位于数组的左边，比第$k$个数字大的所有数字都位于数组的右边。这样调整之后，位于数组中左边的$k$个数字就是最小的$k$个数字（这$k$个数字不一定是排序的）。
+
+&emsp;&emsp;思路三：适用于处理海量数据，时间复杂度是$O(nlogk)$。
+
+先创建一个大小为$k$的数据容器来存储最小的$k$个数字，接下来每次从输入的$n$个整数中读入一个数。如果容器中已有的数字少于$k$个，则直接把这次读入的整数放入容器之中；如果容器中已有$k$个数字了，则找出这已有的$k$个数中的最大值，然后拿这次待插入的整数和最大值进行比较。如果待插入的值比当前已有的最大值小，则用这个数替换当前已有的最大值；如果待插入的值比当前已有的最大值还要大，那么可以抛弃这个整数。因此，当容器满了之后，我们要做3件事情：一是在$k$个整数中找到最大数；二是有可能在这个容器中删除最大数；三是有可能要插入一个新的数字。如果用<font color=red>一棵二叉树</font>来实现这个数据容器，那么我们能在$O(logk)$时间内实现这3步操作。因此，对于$n$个输入数字而言，总的时间效率就是$O(nlogk)$。
