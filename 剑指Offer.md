@@ -1596,3 +1596,74 @@ public class PrintMinNumber
     }
 }
 ```
+
+#### 51.数组中的逆序对
+P249
+&emsp;&emsp;在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。例如，在数组{7, 5, 6, 4}中，一共存在5个逆序对，分别是(7, 6)、(7, 5)、(7, 4)、(6, 4)和(5, 4)。（并将P对1000000007取模的结果输出。即输出P%1000000007）
+
+**解析**：
+&emsp;&emsp;思路一：顺序扫描整个数组。每扫描到一个数字，逐个比较该数字和它后面的数字的大小。如果后面的数字比它小，则这两个数字就组成一个逆序对。假设数组中含有$n$个数字。由于每个数字都要和$O(n)$个数字进行比较，因此这种算法的时间复杂度是$O(n^2)$。
+
+&emsp;&emsp;思路二：先把数组分隔成子数组，统计出子数组内部的逆序对的数目， 然后再统计出两个相邻子数组之间的逆序对的数目。在统计逆序对的过程中，还需要对数组利用归并排序算法进行排序。
+
+统计数组中逆序对的过程：
+<div align=center><img src=PointToOffer_Images/统计数组中逆序对的过程.png></div>
+
+合并两个子数组井统计逆序对的过程：
+<div align=center><img src=PointToOffer_Images/合并两个子数组井统计逆序对的过程.png></div>
+
+先用两个指针分别指向两个子数组的末尾，并每次比较两个指针指向的数字。如果第一个子数组中的数字大于第二个子数组中的数字，则构成逆序对，并且逆序对的数目等于第二个子数组中剩余数字的个数，如图(a)和图(c)所示。如果第一个数组中的数字小于或等第二个数组中的数字，则不构成逆序对，如图(b)所示。每次比较的时候，都把较大的数字从后往前复制到一个辅助数组，确保辅助数组中的数字是递增排序的。在把较大的数字复制到辅助数组之后，把对应的指针向前移动一位，接下来进行下一轮比较。
+
+&emsp;&emsp;归并排序的时间复朵度是$O(nlogn)$，比最直观的$O(n^2)$要快，但同时归并排序需要一个长度为$n$的辅助数组，相当于用$O(n)$的空间消耗换来了时间效率的提升，因此这是一种用空间换时间的算法。
+```java
+/*
+51.数组中的逆序对
+P249
+ */
+
+public class InversePairs
+{
+    private int count;
+
+    public int inversePairs(int[] array)
+    {
+        MergeSort(array, 0, array.length - 1);
+        return count;
+    }
+
+    private void MergeSort(int[] array, int start, int end)
+    {
+        if (start >= end)
+            return;
+        int mid = (start + end) / 2;
+        MergeSort(array, start, mid);
+        MergeSort(array, mid + 1, end);
+        MergeOne(array, start, mid, end);
+    }
+
+    private void MergeOne(int[] array, int start, int mid, int end)
+    {
+        int[] temp = new int[end - start + 1];
+        int k = 0, i = start, j = mid + 1;
+        while (i <= mid && j <= end)
+        {
+            //如果前面的元素小于后面的不能构成逆序对
+            if (array[i] <= array[j])
+                temp[k++] = array[i++];  // 以增序来添加
+            else
+            {
+                //如果前面的元素大于后面的，那么在前面元素之后的元素都能和后面的元素构成逆序对
+                temp[k++] = array[j++];
+                count = (count + (mid - i + 1)) % 1000000007;
+            }
+        }
+
+        while (i <= mid)
+            temp[k++] = array[i++];
+        while (j <= end)
+            temp[k++] = array[j++];
+        for (int m = 0; m < k; m++)
+            array[start + m] = temp[m];
+    }
+}
+```

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5d807d9-26ad-44b2-8644-9127a2d7c9a1" name="Default Changelist" comment="学习9.用两个栈实现队列">
-      <change afterPath="$PROJECT_DIR$/src/PrintMinNumber.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/InversePairs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GetLeastNumbers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GetLeastNumbers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PrintMinNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PrintMinNumber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../剑指Offer.md" beforeDir="false" afterPath="$PROJECT_DIR$/../剑指Offer.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,25 +27,25 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="39" />
+          <entry key="java" value="40" />
           <entry key="md" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="39" />
+          <entry key="JAVA" value="40" />
           <entry key="Markdown" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="11296" />
+          <entry key="java" value="11932" />
           <entry key="txt" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="11296" />
+          <entry key="JAVA" value="11932" />
           <entry key="PLAIN_TEXT" value="17" />
         </counts>
       </usages-collector>
@@ -54,13 +54,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/PrintMinNumber.java">
+        <entry file="file://$PROJECT_DIR$/src/InversePairs.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="565">
-              <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+            <state relative-caret-position="785">
+              <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
               <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="imports" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -118,6 +117,7 @@
         <option value="$PROJECT_DIR$/src/MoreThanHalfNum.java" />
         <option value="$PROJECT_DIR$/src/GetLeastNumbers.java" />
         <option value="$PROJECT_DIR$/src/PrintMinNumber.java" />
+        <option value="$PROJECT_DIR$/src/InversePairs.java" />
       </list>
     </option>
   </component>
@@ -135,7 +135,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="y" value="-12" />
     <option name="width" value="3026" />
@@ -170,7 +170,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1583114814747" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1583118729318" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -257,7 +257,7 @@
       <workItem from="1582533849848" duration="9986000" />
       <workItem from="1582599107244" duration="9584000" />
       <workItem from="1583045162754" duration="4180000" />
-      <workItem from="1583114538789" duration="534000" />
+      <workItem from="1583114538789" duration="1933000" />
     </task>
     <task id="LOCAL-00001" summary="翻转单词顺序，添加方法一">
       <created>1582373771043</created>
@@ -270,10 +270,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57724000" />
+    <option name="totallyTimeSpent" value="59123000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1513" height="1013" extended-state="7" />
+    <frame x="-6" y="-6" width="1513" height="1013" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2735395" />
@@ -545,6 +545,16 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InversePairs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="785">
+          <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

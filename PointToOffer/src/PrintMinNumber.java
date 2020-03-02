@@ -28,7 +28,7 @@ public class PrintMinNumber
                 return str1.compareTo(str2);
             }
         });
-        
+
         for (int j : list)
             string += j;
         return string;
