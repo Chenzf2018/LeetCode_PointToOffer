@@ -1510,3 +1510,89 @@ public class GetLeastNumbers
 &emsp;&emsp;思路三：适用于处理海量数据，时间复杂度是$O(nlogk)$。
 
 先创建一个大小为$k$的数据容器来存储最小的$k$个数字，接下来每次从输入的$n$个整数中读入一个数。如果容器中已有的数字少于$k$个，则直接把这次读入的整数放入容器之中；如果容器中已有$k$个数字了，则找出这已有的$k$个数中的最大值，然后拿这次待插入的整数和最大值进行比较。如果待插入的值比当前已有的最大值小，则用这个数替换当前已有的最大值；如果待插入的值比当前已有的最大值还要大，那么可以抛弃这个整数。因此，当容器满了之后，我们要做3件事情：一是在$k$个整数中找到最大数；二是有可能在这个容器中删除最大数；三是有可能要插入一个新的数字。如果用<font color=red>一棵二叉树</font>来实现这个数据容器，那么我们能在$O(logk)$时间内实现这3步操作。因此，对于$n$个输入数字而言，总的时间效率就是$O(nlogk)$。
+
+#### 41.数据流中的中位数（待更）
+P214
+&emsp;&emsp;如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。
+
+#### 45.把数组排列成最小的数
+P227
+&emsp;&emsp;输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如，输入数组{3,32,321}，则打印出这3个数字能排成的最小数字321323。
+
+**解析**：
+&emsp;&emsp;思路一：先求出这个数组中所有数字的全排列，然后把每个排列拼起来，最后求出拼起来的数字的最小值。$n$个数字总共有$n!$个排列。
+
+&emsp;&emsp;思路二：两个数字$m$和$n$能拼接成数字$mn$和$nm$。如果$mn < nm$，那么应该打印出$mn$，也就是$m$应该排在$n$的前面，定义此时$m$“小于”$n$；反之，如果$nm < mn$，则定义$n$“小于”$m$；如果$mn=nm$，则$m$“等于”$n$。
+
+接下来考虑怎么去拼接数字，即给出数字$m$和$n$，怎么得到数字$mn$和$nm$并比较它们的大小。直接用数值去计算不难办到，但需要考虑的一个潜在问题就是$m$和$n$都在`int`型能表达的范围内，但把它们拼接起来的数字$mn$和$nm$用`int`型表示就有可能溢出了，所以这还是一个隐形的<font color=red>大数问题</font>。
+
+一个非常直观的解决大数问题的方法就是<font color=red>把数字转换成字符串</font>。另外<font color=red>由于把数字$m$和$n$拼接起来得到$mn$和$nm$，它们的位数肯定是相同的，因此比较它们的大小只需要按照字符串大小的比较规则就可以了</font>。
+
+```java {.line-numbers highlight=11}
+import java.util.ArrayList;
+public class Solution 
+{
+    public String PrintMinNumber(int [] numbers) 
+    {
+        if(numbers == null || numbers.length == 0)return "";
+        for(int i=0; i < numbers.length; i++)
+        {
+            for(int j = i+1; j < numbers.length; j++)
+            {
+                int sum1 = Integer.valueOf(numbers[i]+""+numbers[j]);
+                int sum2 = Integer.valueOf(numbers[j]+""+numbers[i]);
+                if(sum1 > sum2)
+                {
+                    int temp = numbers[j];
+                    numbers[j] = numbers[i];
+                    numbers[i] = temp;
+                }
+            }
+        }
+        String str = new String("");
+        for(int i=0; i < numbers.length; i++)
+            str = str + numbers[i];
+        return str;
+    }
+}
+```
+注意第11行代码，这里并没有解决“大数问题”！
+
+```java
+/*
+45.把数组排列成最小的数
+P227
+ */
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class PrintMinNumber
+{
+    public String printMinNumber(int[] numbers)
+    {
+        String string = "";
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (int number : numbers)
+            list.add(number);  // 将数组放入ArrayList中
+
+        //实现Comparator接口的compare方法，将集合元素按照compare方法的规则进行排序
+        Collections.sort(list, new Comparator<Integer>() 
+        {
+            @Override
+            public int compare(Integer o1, Integer o2) 
+            {
+                String str1 = o1 + "" + o2;
+                String str2 = o2 + "" + o1;
+                return str1.compareTo(str2);
+            }
+        });
+        
+        for (int j : list)
+            string += j;
+        return string;
+    }
+}
+```

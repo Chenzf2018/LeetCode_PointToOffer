@@ -26,7 +26,7 @@ public class GetLeastNumbers
 
             arrayList.add(input[input.length - 1 - i]);
         }
-        
+
         return arrayList;
     }
 
